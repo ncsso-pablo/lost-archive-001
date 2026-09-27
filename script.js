@@ -1,616 +1,749 @@
-const audio =
-    document.getElementById("audio");
-
-const playButton =
-    document.getElementById("play-button");
-
-const currentTime =
-    document.getElementById("current-time");
-
-const duration =
-    document.getElementById("duration");
-
-const progressContainer =
-    document.getElementById("progress-container");
-
-const progressBar =
-    document.querySelector(".progress-bar");
-
-const progressHandle =
-    document.querySelector(".progress-handle");
-
-const trackNumber =
-    document.getElementById("track-number");
-
-const trackName =
-    document.getElementById("track-name");
-
-const previousButton =
-    document.getElementById("previous-button");
-
-const nextButton =
-    document.getElementById("next-button");
-
-const startPage =
-    document.getElementById("start-page");
-
-const archivePage =
-    document.getElementById("archive-page");
-
-const enterArchive =
-    document.getElementById("enter-archive");
-
-
-/* =========================
+/* =========================================
    TRACK LIST
-========================= */
+========================================= */
 
 const tracks = [
 
-    {
-        number: "001",
-        title: "surd",
-        file: "audio/surd.mp3"
-    },
+  {
+    number: "001",
+    title: "surd",
+    file: "audio/surd.mp3",
+    color: "#e8e3d8"
+  },
 
-    {
-        number: "002",
-        title: "vogt",
-        file: "audio/vogt.mp3"
-    },
+  {
+    number: "002",
+    title: "vogt",
+    file: "audio/vogt.mp3",
+    color: "#ddd9d0"
+  },
 
-    {
-        number: "003",
-        title: "3",
-        file: "audio/3.mp3"
-    },
+  {
+    number: "003",
+    title: "3",
+    file: "audio/3.mp3",
+    color: "#d5d2ca"
+  },
 
-    {
-        number: "004",
-        title: "drea_2",
-        file: "audio/drea_2.mp3"
-    },
+  {
+    number: "004",
+    title: "drea_2",
+    file: "audio/drea_2.mp3",
+    color: "#e3ddd0"
+  },
 
-    {
-        number: "005",
-        title: "dreammmu",
-        file: "audio/dreammmu.mp3"
-    },
+  {
+    number: "005",
+    title: "dreammmu",
+    file: "audio/dreammmu.mp3",
+    color: "#d9d5cb"
+  },
 
-    {
-        number: "006",
-        title: "Project_1222222222222",
-        file: "audio/Project_1222222222222.mp3"
-    },
+  {
+    number: "006",
+    title: "Project_12222222222222",
+    file: "audio/Project_12222222222222.mp3",
+    color: "#cecac2"
+  },
 
-    {
-        number: "007",
-        title: "sardddd",
-        file: "audio/sardddd.mp3"
-    },
+  {
+    number: "007",
+    title: "sardddd",
+    file: "audio/sardddd.mp3",
+    color: "#e5dfd2"
+  },
 
-    {
-        number: "008",
-        title: "serdddd",
-        file: "audio/serdddd.mp3"
-    },
+  {
+    number: "008",
+    title: "serdddd",
+    file: "audio/serdddd.mp3",
+    color: "#d8d4ca"
+  },
 
-    {
-        number: "009",
-        title: "ssssd",
-        file: "audio/ssssd.mp3"
-    }
+  {
+    number: "009",
+    title: "ssssd",
+    file: "audio/ssssd.mp3",
+    color: "#e0dbd1"
+  }
 
 ];
 
 
-let currentTrackIndex = 0;
+/* =========================================
+   ELEMENTS
+========================================= */
 
-let isDragging = false;
+const startPage =
+  document.getElementById("start-page");
+
+const archivePage =
+  document.getElementById("archive-page");
+
+const enterArchive =
+  document.getElementById("enter-archive");
+
+const backToStart =
+  document.getElementById("back-to-start");
 
 
-/* =========================
+const audio =
+  document.getElementById("audio");
+
+const playButton =
+  document.getElementById("play-button");
+
+const previousButton =
+  document.getElementById("previous-button");
+
+const nextButton =
+  document.getElementById("next-button");
+
+
+const trackNumber =
+  document.getElementById("track-number");
+
+const trackName =
+  document.getElementById("track-name");
+
+
+const progressContainer =
+  document.getElementById("progress-container");
+
+const progressBar =
+  document.querySelector(".progress-bar");
+
+const progressHandle =
+  document.querySelector(".progress-handle");
+
+
+const currentTime =
+  document.getElementById("current-time");
+
+const duration =
+  document.getElementById("duration");
+
+
+/* POPUPS */
+
+const aboutButton =
+  document.getElementById("about-button");
+
+const contactButton =
+  document.getElementById("contact-button");
+
+const aboutOverlay =
+  document.getElementById("about-overlay");
+
+const contactOverlay =
+  document.getElementById("contact-overlay");
+
+
+/* COPY */
+
+const copyEmail =
+  document.getElementById("copy-email");
+
+const copyStatus =
+  document.getElementById("copy-status");
+
+
+/* =========================================
+   STATE
+========================================= */
+
+let currentTrack = 0;
+
+
+/* =========================================
    START → ARCHIVE
-========================= */
+========================================= */
 
 enterArchive.addEventListener(
-    "click",
-    function () {
+  "click",
+  () => {
 
-        startPage.classList.add("hidden");
+    startPage.classList.add(
+      "hidden"
+    );
 
-        archivePage.classList.add("active");
+    archivePage.classList.add(
+      "active"
+    );
 
-    }
+  }
 );
 
 
-/* =========================
+/* =========================================
+   ARCHIVE → START
+========================================= */
+
+backToStart.addEventListener(
+  "click",
+  () => {
+
+    archivePage.classList.remove(
+      "active"
+    );
+
+    startPage.classList.remove(
+      "hidden"
+    );
+
+  }
+);
+
+
+/* =========================================
    LOAD TRACK
-========================= */
+========================================= */
 
 function loadTrack(index) {
 
-    currentTrackIndex = index;
+  currentTrack = index;
 
-    const track =
-        tracks[currentTrackIndex];
-
-
-    audio.src = track.file;
+  const track =
+    tracks[currentTrack];
 
 
-    trackNumber.textContent =
-        track.number;
+  trackNumber.textContent =
+    track.number;
 
 
-    trackName.textContent =
-        track.title;
+  trackName.textContent =
+    track.title;
 
 
-    currentTime.textContent =
-        "00:00";
+  audio.src =
+    track.file;
 
 
-    duration.textContent =
-        "00:00";
+  audio.load();
 
 
-    progressBar.style.width =
-        "0%";
+  /*
+    The body has a long CSS transition.
+    This creates a very soft colour change.
+  */
+
+  document.body.style.backgroundColor =
+    track.color;
 
 
-    progressHandle.style.left =
-        "0%";
+  playButton.textContent =
+    "play";
 
 
-    playButton.textContent =
-        "play";
+  currentTime.textContent =
+    "00:00";
 
 
-    audio.load();
+  duration.textContent =
+    "00:00";
+
+
+  progressBar.style.width =
+    "0%";
+
+
+  progressHandle.style.left =
+    "0%";
 
 }
 
 
-/* =========================
+/* =========================================
    PLAY / PAUSE
-========================= */
+========================================= */
 
 function togglePlay() {
 
-    if (audio.paused) {
+  if (audio.paused) {
 
-        /*
-         * PLAY STARTS
-         * FROM THE BEGINNING
-         */
+    audio.currentTime = 0;
 
-        audio.currentTime = 0;
+    audio.play();
 
+    playButton.textContent =
+      "pause";
 
-        audio.play()
-            .then(function () {
+  }
 
-                playButton.textContent =
-                    "pause";
+  else {
 
-                updateProgress();
+    audio.pause();
 
-            })
-            .catch(function (error) {
+    playButton.textContent =
+      "play";
 
-                console.error(
-                    "Audio konnte nicht abgespielt werden:",
-                    error
-                );
-
-            });
-
-    }
-
-    else {
-
-        audio.pause();
-
-        playButton.textContent =
-            "play";
-
-    }
+  }
 
 }
 
-
-/* =========================
-   PLAY BUTTON
-========================= */
 
 playButton.addEventListener(
-    "click",
-    togglePlay
+  "click",
+  togglePlay
 );
 
 
-/* =========================
+/* =========================================
    SPACEBAR
-========================= */
+========================================= */
 
 document.addEventListener(
-    "keydown",
-    function (event) {
-
-        if (
-            event.code === "Space" &&
-            event.target.tagName !== "INPUT" &&
-            event.target.tagName !== "TEXTAREA"
-        ) {
-
-            event.preventDefault();
-
-            togglePlay();
-
-        }
-
-    }
-);
-
-
-/* =========================
-   AUDIO LOADED
-========================= */
-
-audio.addEventListener(
-    "loadedmetadata",
-    function () {
-
-        duration.textContent =
-            formatTime(audio.duration);
-
-    }
-);
-
-
-/* =========================
-   AUDIO ERROR
-========================= */
-
-audio.addEventListener(
-    "error",
-    function () {
-
-        console.error(
-            "Audio-Datei konnte nicht geladen werden:",
-            audio.src
-        );
-
-        playButton.textContent =
-            "error";
-
-    }
-);
-
-
-/* =========================
-   PROGRESS
-========================= */
-
-function updateProgress() {
-
-    if (!audio.duration) {
-        return;
-    }
-
-
-    const progress =
-        audio.currentTime /
-        audio.duration;
-
-
-    const percentage =
-        progress * 100;
-
-
-    progressBar.style.width =
-        percentage + "%";
-
-
-    progressHandle.style.left =
-        percentage + "%";
-
-
-    currentTime.textContent =
-        formatTime(audio.currentTime);
-
+  "keydown",
+  (event) => {
 
     if (
-        !audio.paused &&
-        !audio.ended &&
-        !isDragging
+      event.code === "Space" &&
+      event.target.tagName !== "INPUT" &&
+      event.target.tagName !== "TEXTAREA"
     ) {
 
-        requestAnimationFrame(
-            updateProgress
-        );
+      event.preventDefault();
+
+      togglePlay();
 
     }
 
-}
+  }
+);
 
 
-/* =========================
-   SET PROGRESS
-========================= */
+/* =========================================
+   AUDIO METADATA
+========================================= */
 
-function setProgressFromPointer(event) {
+audio.addEventListener(
+  "loadedmetadata",
+  () => {
 
-    if (!audio.duration) {
-        return;
-    }
+    duration.textContent =
+      formatTime(audio.duration);
 
-
-    const rect =
-        progressContainer.getBoundingClientRect();
-
-
-    let position =
-        (event.clientX - rect.left) /
-        rect.width;
+  }
+);
 
 
-    position =
-        Math.max(
-            0,
-            Math.min(1, position)
-        );
+/* =========================================
+   AUDIO ERROR
+========================================= */
+
+audio.addEventListener(
+  "error",
+  () => {
+
+    playButton.textContent =
+      "error";
+
+    console.log(
+      "Could not load:",
+      audio.src
+    );
+
+  }
+);
 
 
-    audio.currentTime =
-        position * audio.duration;
+/* =========================================
+   PROGRESS
+========================================= */
+
+audio.addEventListener(
+  "timeupdate",
+  () => {
+
+    if (!audio.duration) return;
 
 
     const percentage =
-        position * 100;
+      (
+        audio.currentTime /
+        audio.duration
+      ) * 100;
 
 
     progressBar.style.width =
-        percentage + "%";
+      `${percentage}%`;
 
 
     progressHandle.style.left =
-        percentage + "%";
+      `${percentage}%`;
 
 
     currentTime.textContent =
-        formatTime(audio.currentTime);
+      formatTime(
+        audio.currentTime
+      );
 
-}
-
-
-/* =========================
-   PROGRESS DRAG
-========================= */
-
-progressContainer.addEventListener(
-    "pointerdown",
-    function (event) {
-
-        isDragging = true;
-
-        progressContainer.setPointerCapture(
-            event.pointerId
-        );
-
-        setProgressFromPointer(event);
-
-    }
+  }
 );
 
 
+/* =========================================
+   PROGRESS CLICK
+========================================= */
+
 progressContainer.addEventListener(
-    "pointermove",
-    function (event) {
+  "click",
+  (event) => {
 
-        if (!isDragging) {
-            return;
-        }
+    const rect =
+      progressContainer.getBoundingClientRect();
 
-        setProgressFromPointer(event);
+
+    const position =
+      (
+        event.clientX -
+        rect.left
+      ) / rect.width;
+
+
+    if (audio.duration) {
+
+      audio.currentTime =
+        position *
+        audio.duration;
 
     }
+
+  }
 );
 
 
-progressContainer.addEventListener(
-    "pointerup",
-    function (event) {
-
-        isDragging = false;
-
-        progressContainer.releasePointerCapture(
-            event.pointerId
-        );
-
-
-        if (!audio.paused) {
-
-            updateProgress();
-
-        }
-
-    }
-);
-
-
-progressContainer.addEventListener(
-    "pointercancel",
-    function () {
-
-        isDragging = false;
-
-    }
-);
-
-
-/* =========================
-   PREVIOUS TRACK
-========================= */
+/* =========================================
+   PREVIOUS
+========================================= */
 
 previousButton.addEventListener(
-    "click",
-    function () {
+  "click",
+  () => {
 
-        currentTrackIndex--;
+    currentTrack--;
 
-        if (currentTrackIndex < 0) {
+    if (currentTrack < 0) {
 
-            currentTrackIndex =
-                tracks.length - 1;
-
-        }
-
-
-        loadTrack(
-            currentTrackIndex
-        );
+      currentTrack =
+        tracks.length - 1;
 
     }
+
+    loadTrack(
+      currentTrack
+    );
+
+  }
 );
 
 
-/* =========================
-   NEXT TRACK
-========================= */
+/* =========================================
+   NEXT
+========================================= */
 
 nextButton.addEventListener(
-    "click",
-    function () {
+  "click",
+  () => {
 
-        currentTrackIndex++;
+    currentTrack++;
 
-        if (
-            currentTrackIndex >=
-            tracks.length
-        ) {
+    if (
+      currentTrack >=
+      tracks.length
+    ) {
 
-            currentTrackIndex = 0;
-
-        }
-
-
-        loadTrack(
-            currentTrackIndex
-        );
+      currentTrack = 0;
 
     }
+
+    loadTrack(
+      currentTrack
+    );
+
+  }
 );
 
 
-/* =========================
+/* =========================================
    KEYBOARD ARROWS
-========================= */
+========================================= */
 
 document.addEventListener(
-    "keydown",
-    function (event) {
+  "keydown",
+  (event) => {
 
-        if (event.code === "ArrowLeft") {
+    if (event.key === "ArrowLeft") {
 
-            currentTrackIndex--;
+      currentTrack--;
 
-            if (currentTrackIndex < 0) {
+      if (currentTrack < 0) {
 
-                currentTrackIndex =
-                    tracks.length - 1;
+        currentTrack =
+          tracks.length - 1;
 
-            }
+      }
 
-            loadTrack(
-                currentTrackIndex
-            );
-
-        }
-
-
-        if (event.code === "ArrowRight") {
-
-            currentTrackIndex++;
-
-            if (
-                currentTrackIndex >=
-                tracks.length
-            ) {
-
-                currentTrackIndex = 0;
-
-            }
-
-            loadTrack(
-                currentTrackIndex
-            );
-
-        }
+      loadTrack(
+        currentTrack
+      );
 
     }
+
+
+    if (event.key === "ArrowRight") {
+
+      currentTrack++;
+
+      if (
+        currentTrack >=
+        tracks.length
+      ) {
+
+        currentTrack = 0;
+
+      }
+
+      loadTrack(
+        currentTrack
+      );
+
+    }
+
+  }
 );
 
 
-/* =========================
-   SONG ENDED
-========================= */
+/* =========================================
+   TRACK ENDED
+========================================= */
 
 audio.addEventListener(
-    "ended",
-    function () {
+  "ended",
+  () => {
 
-        playButton.textContent =
-            "play";
+    playButton.textContent =
+      "play";
 
+    audio.currentTime = 0;
 
-        audio.currentTime = 0;
+    progressBar.style.width =
+      "0%";
 
+    progressHandle.style.left =
+      "0%";
 
-        progressBar.style.width =
-            "0%";
+    currentTime.textContent =
+      "00:00";
 
-
-        progressHandle.style.left =
-            "0%";
-
-
-        currentTime.textContent =
-            "00:00";
-
-    }
+  }
 );
 
 
-/* =========================
-   FORMAT TIME
-========================= */
+/* =========================================
+   ABOUT
+========================================= */
+
+aboutButton.addEventListener(
+  "click",
+  () => {
+
+    aboutOverlay.classList.add(
+      "active"
+    );
+
+  }
+);
+
+
+/* =========================================
+   CONTACT
+========================================= */
+
+contactButton.addEventListener(
+  "click",
+  () => {
+
+    contactOverlay.classList.add(
+      "active"
+    );
+
+  }
+);
+
+
+/* =========================================
+   CLOSE POPUPS
+========================================= */
+
+document
+  .querySelectorAll("[data-close]")
+  .forEach(
+    (button) => {
+
+      button.addEventListener(
+        "click",
+        () => {
+
+          const overlayId =
+            button.dataset.close;
+
+
+          document
+            .getElementById(
+              overlayId
+            )
+            .classList.remove(
+              "active"
+            );
+
+        }
+      );
+
+    }
+  );
+
+
+/* =========================================
+   CLICK OUTSIDE POPUP
+========================================= */
+
+[
+  aboutOverlay,
+  contactOverlay
+].forEach(
+  (overlay) => {
+
+    overlay.addEventListener(
+      "click",
+      (event) => {
+
+        if (
+          event.target ===
+          overlay
+        ) {
+
+          overlay.classList.remove(
+            "active"
+          );
+
+        }
+
+      }
+    );
+
+  }
+);
+
+
+/* =========================================
+   ESCAPE
+========================================= */
+
+document.addEventListener(
+  "keydown",
+  (event) => {
+
+    if (event.key === "Escape") {
+
+      aboutOverlay.classList.remove(
+        "active"
+      );
+
+      contactOverlay.classList.remove(
+        "active"
+      );
+
+    }
+
+  }
+);
+
+
+/* =========================================
+   COPY EMAIL
+========================================= */
+
+copyEmail.addEventListener(
+  "click",
+  async () => {
+
+    const email =
+      "kopfnicolai@gmail.com";
+
+
+    try {
+
+      await navigator.clipboard.writeText(
+        email
+      );
+
+
+      copyStatus.textContent =
+        "copied";
+
+
+      setTimeout(
+        () => {
+
+          copyStatus.textContent =
+            "";
+
+        },
+        1500
+      );
+
+    }
+
+    catch (error) {
+
+      copyStatus.textContent =
+        "error";
+
+    }
+
+  }
+);
+
+
+/* =========================================
+   TIME FORMAT
+========================================= */
 
 function formatTime(seconds) {
 
-    const minutes =
-        Math.floor(seconds / 60);
+  if (!isFinite(seconds)) {
+
+    return "00:00";
+
+  }
 
 
-    const remainingSeconds =
-        Math.floor(seconds % 60);
-
-
-    return (
-        String(minutes).padStart(2, "0")
-        +
-        ":"
-        +
-        String(remainingSeconds).padStart(2, "0")
+  const minutes =
+    Math.floor(
+      seconds / 60
     );
+
+
+  const remainingSeconds =
+    Math.floor(
+      seconds % 60
+    );
+
+
+  return (
+    String(minutes)
+      .padStart(2, "0")
+    + ":" +
+    String(remainingSeconds)
+      .padStart(2, "0")
+  );
 
 }
 
 
-/* =========================
+/* =========================================
    INITIAL TRACK
-========================= */
+========================================= */
 
 loadTrack(0);
