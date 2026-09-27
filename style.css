@@ -1,492 +1,787 @@
-* {
-    box-sizing: border-box;
-}
+/* =========================================
+   RESET
+========================================= */
 
+* {
+  box-sizing: border-box;
+}
 
 html,
 body {
-    margin: 0;
-    padding: 0;
-
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
+  margin: 0;
 }
 
+
+/* =========================================
+   BODY
+========================================= */
 
 body {
-    background: #e8e3d8;
-    color: #111111;
 
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 13px;
+  background: #e8e3d8;
 
-    overflow: hidden;
+  color: #111111;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  font-size: 13px;
+
+  overflow: hidden;
+
+  /*
+    VERY SOFT MATERIAL / PAPER TRANSITION
+  */
+
+  transition:
+    background-color 1.8s cubic-bezier(.25,.1,.25,1);
 }
 
 
-/* =========================
+/* =========================================
+   BUTTON RESET
+========================================= */
+
+button {
+
+  font-family: inherit;
+
+  color: #111111;
+
+  background: none;
+
+  border: none;
+
+  padding: 0;
+
+  cursor: pointer;
+}
+
+
+/* =========================================
+   PAGES
+========================================= */
+
+.start-page,
+.archive {
+
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100vh;
+}
+
+
+/* =========================================
    START PAGE
-========================= */
+========================================= */
 
 .start-page {
 
-    position: absolute;
+  display: flex;
 
-    top: 0;
-    left: 0;
+  align-items: center;
+  justify-content: center;
 
-    width: 100%;
-    height: 100vh;
+  opacity: 1;
 
-    display: flex;
+  transition:
+    opacity 0.8s ease;
 
-    align-items: center;
-    justify-content: center;
-
-    opacity: 1;
-
-    transition:
-        opacity 0.6s ease;
-
-    z-index: 2;
+  z-index: 2;
 }
 
 
 .start-page.hidden {
 
-    opacity: 0;
+  opacity: 0;
 
-    pointer-events: none;
-
+  pointer-events: none;
 }
 
 
-/* =========================
+/* =========================================
    START TITLE
-========================= */
+========================================= */
 
-.archive-title {
+.start-title {
 
-    padding: 0;
+  font-size: 13px;
 
-    border: none;
+  letter-spacing: 0.015em;
 
-    background: none;
+  white-space: nowrap;
 
-    color: #111111;
-
-    font-family: inherit;
-
-    font-size: 13px;
-
-    font-weight: 400;
-
-    letter-spacing: 0.08em;
-
-    cursor: pointer;
-
-    transition:
-        letter-spacing 0.25s ease,
-        transform 0.25s ease;
-
+  transform-origin: center;
 }
 
 
-.archive-title:hover {
+/*
+   EVERY LETTER IS ITS OWN OBJECT
+*/
 
-    letter-spacing: 0.16em;
+.start-title span {
 
-    transform: scaleX(1.02);
+  display: inline-block;
 
+  transition:
+    transform 0.45s cubic-bezier(.2,.8,.2,1),
+    letter-spacing 0.45s ease;
 }
 
 
-/* =========================
-   ARCHIVE PAGE
-========================= */
+/*
+   SOFT MORPH
+*/
+
+.start-title:hover span:nth-child(odd) {
+
+  transform:
+    translateY(-1px)
+    scaleX(1.12)
+    rotate(0.8deg);
+
+  letter-spacing: 0.035em;
+}
+
+
+.start-title:hover span:nth-child(even) {
+
+  transform:
+    translateY(1px)
+    scaleX(0.92)
+    rotate(-0.8deg);
+
+  letter-spacing: 0.045em;
+}
+
+
+/* =========================================
+   ARCHIVE
+========================================= */
 
 .archive {
 
-    position: absolute;
+  padding: 32px;
 
-    top: 0;
-    left: 0;
+  opacity: 0;
 
-    width: 100%;
-    height: 100vh;
+  pointer-events: none;
 
-    padding: 32px;
+  transition:
+    opacity 0.8s ease;
 
-    opacity: 0;
-
-    pointer-events: none;
-
-    transition:
-        opacity 0.6s ease;
-
-    z-index: 1;
-
+  z-index: 1;
 }
 
 
 .archive.active {
 
-    opacity: 1;
+  opacity: 1;
 
-    pointer-events: auto;
+  pointer-events: auto;
 
-    z-index: 3;
-
+  z-index: 3;
 }
 
 
-/* =========================
-   ARCHIVE TITLE
-========================= */
+/* =========================================
+   ARCHIVE HEADER
+========================================= */
 
-.archive h1 {
+.archive-header {
 
-    margin: 0;
+  position: absolute;
 
-    color: #111111;
+  top: 32px;
+  left: 32px;
 
-    font-size: 13px;
+  font-size: 13px;
 
-    font-weight: 400;
+  letter-spacing: 0.015em;
 
-    letter-spacing: 0.08em;
-
-    transition:
-        letter-spacing 0.25s ease,
-        transform 0.25s ease;
-
+  white-space: nowrap;
 }
 
 
-.archive h1:hover {
+.archive-header span {
 
-    letter-spacing: 0.14em;
+  display: inline-block;
 
-    transform: scaleX(1.02);
-
+  transition:
+    transform 0.45s cubic-bezier(.2,.8,.2,1),
+    letter-spacing 0.45s ease;
 }
 
 
-/* =========================
-   PLAYER BOX
-========================= */
+.archive-header:hover span:nth-child(odd) {
+
+  transform:
+    translateY(-1px)
+    scaleX(1.12)
+    rotate(0.8deg);
+
+  letter-spacing: 0.035em;
+}
+
+
+.archive-header:hover span:nth-child(even) {
+
+  transform:
+    translateY(1px)
+    scaleX(0.92)
+    rotate(-0.8deg);
+
+  letter-spacing: 0.045em;
+}
+
+
+/* =========================================
+   PLAYER
+========================================= */
 
 .player {
 
-    position: absolute;
+  position: absolute;
 
-    left: 50%;
-    top: 50%;
+  left: 8vw;
 
-    transform: translate(-50%, -50%);
+  top: 50%;
 
-    width: min(
-        460px,
-        calc(100% - 64px)
-    );
+  transform:
+    translateY(-50%);
 
-    padding: 32px;
+  width:
+    min(520px, calc(100% - 16vw));
 
-    border: 1px solid #777777;
+  padding: 36px;
 
+  /*
+    THICK RETRO FRAME
+  */
+
+  border:
+    3px solid #111111;
+
+  background: transparent;
+
+  transition:
+    transform 0.5s ease;
 }
 
 
-/* =========================
+/* =========================================
    TRACK INFO
-========================= */
+========================================= */
 
 .track-info {
 
-    display: flex;
+  display: flex;
 
-    gap: 25px;
+  gap: 16px;
 
-    margin-bottom: 24px;
+  margin-bottom: 30px;
 
+  white-space: nowrap;
 }
 
 
 .track-number {
 
-    color: #111111;
+  font-weight: 700;
 
-    font-weight: 700;
-
-    transition:
-        letter-spacing 0.2s ease,
-        transform 0.2s ease;
-
+  transition:
+    letter-spacing 0.5s ease,
+    transform 0.5s ease;
 }
 
 
 .track-name {
 
-    color: #111111;
-
-    transition:
-        letter-spacing 0.2s ease,
-        transform 0.2s ease;
-
+  transition:
+    letter-spacing 0.6s cubic-bezier(.2,.8,.2,1),
+    transform 0.6s cubic-bezier(.2,.8,.2,1);
 }
 
 
-.track-number:hover,
-.track-name:hover {
+/*
+   TRACK NAME MORPH
+*/
 
-    letter-spacing: 0.06em;
+.player:hover .track-name {
 
-    transform: scaleX(1.03);
+  letter-spacing: 0.12em;
 
+  transform:
+    scaleX(1.035);
 }
 
 
-/* =========================
-   PLAY BUTTON
-========================= */
+.player:hover .track-number {
+
+  letter-spacing: 0.07em;
+
+  transform:
+    scaleX(1.05);
+}
+
+
+/* =========================================
+   PLAY
+========================================= */
 
 .play-button {
 
-    display: block;
+  font-size: 13px;
 
-    margin: 0 0 24px 0;
+  margin-bottom: 32px;
 
-    padding: 0;
+  transform-origin: left center;
 
-    border: none;
-
-    background: none;
-
-    color: #111111;
-
-    font-family: inherit;
-
-    font-size: inherit;
-
-    cursor: pointer;
-
-    transition:
-        letter-spacing 0.2s ease,
-        transform 0.2s ease;
-
+  transition:
+    transform 0.35s ease,
+    letter-spacing 0.35s ease;
 }
 
 
 .play-button:hover {
 
-    letter-spacing: 0.06em;
+  transform:
+    scaleX(1.12);
 
-    transform: scaleX(1.03);
-
+  letter-spacing: 0.06em;
 }
 
 
-/* =========================
+/* =========================================
    PROGRESS
-========================= */
+========================================= */
 
 .progress-container {
 
-    position: relative;
+  position: relative;
 
-    width: 100%;
+  width: 100%;
 
-    height: 1px;
+  height: 3px;
 
-    background: #777777;
+  background: #777777;
 
-    margin-bottom: 8px;
+  margin-bottom: 9px;
 
-    cursor: pointer;
+  cursor: pointer;
 
-    transition:
-        transform 0.2s ease;
-
+  transition:
+    transform 0.25s ease;
 }
 
 
 .progress-container:hover {
 
-    transform: scaleY(2);
-
+  transform:
+    scaleY(2.2);
 }
 
 
 .progress-bar {
 
-    width: 0%;
+  position: absolute;
 
-    height: 100%;
+  left: 0;
+  top: 0;
 
-    background: #111111;
+  width: 0%;
 
+  height: 100%;
+
+  background: #111111;
 }
 
 
 .progress-handle {
 
-    position: absolute;
+  position: absolute;
 
-    top: 50%;
-    left: 0%;
+  left: 0;
+  top: 50%;
 
-    width: 7px;
-    height: 7px;
+  width: 8px;
+  height: 8px;
 
-    background: #111111;
+  background: #111111;
 
-    border-radius: 50%;
+  border-radius: 50%;
 
-    transform:
-        translate(-50%, -50%);
+  transform:
+    translate(-50%, -50%);
 
-    cursor: grab;
-
-    transition:
-        width 0.12s ease,
-        height 0.12s ease;
-
+  transition:
+    transform 0.15s ease;
 }
 
 
-.progress-handle:active {
+.progress-container:hover
+.progress-handle {
 
-    width: 13px;
-    height: 13px;
-
-    cursor: grabbing;
-
+  transform:
+    translate(-50%, -50%)
+    scale(1.4);
 }
 
 
-/* =========================
+/* =========================================
    TIME
-========================= */
+========================================= */
 
 .time {
 
-    display: flex;
+  display: flex;
 
-    justify-content: space-between;
+  justify-content: space-between;
 
-    color: #111111;
-
+  font-size: 11px;
 }
 
 
-.time span {
-
-    transition:
-        letter-spacing 0.2s ease,
-        transform 0.2s ease;
-
-}
-
-
-.time span:hover {
-
-    letter-spacing: 0.05em;
-
-    transform: scaleX(1.03);
-
-}
-
-
-/* =========================
+/* =========================================
    TRACK NAVIGATION
-========================= */
+========================================= */
 
 .track-navigation {
 
-    display: flex;
+  display: flex;
 
-    justify-content: center;
+  justify-content: center;
 
-    gap: 22px;
+  gap: 18px;
 
-    margin-top: 28px;
-
+  margin-top: 30px;
 }
 
 
 .navigation-button {
 
-    width: 20px;
+  font-size: 15px;
 
-    padding: 0;
-
-    border: none;
-
-    background: none;
-
-    color: #111111;
-
-    font-family: inherit;
-
-    font-size: 13px;
-
-    cursor: pointer;
-
-    transition:
-        letter-spacing 0.2s ease,
-        transform 0.2s ease;
-
+  transition:
+    transform 0.35s ease,
+    letter-spacing 0.35s ease;
 }
 
 
 .navigation-button:hover {
 
-    transform: scaleX(1.25);
+  transform:
+    scaleX(1.45);
 
+  letter-spacing: 0.04em;
 }
 
 
-/* =========================
-   ABOUT
-========================= */
+/* =========================================
+   CORNER BUTTONS
+========================================= */
 
-.about-button {
+.corner-button {
 
-    position: absolute;
+  position: absolute;
 
-    left: 32px;
+  left: 32px;
 
-    bottom: 32px;
+  font-size: 13px;
 
-    padding: 0;
-
-    border: none;
-
-    background: none;
-
-    color: #111111;
-
-    font-family: inherit;
-
-    font-size: 13px;
-
-    text-transform: uppercase;
-
-    letter-spacing: 0.1em;
-
-    cursor: pointer;
-
-    transition:
-        letter-spacing 0.2s ease,
-        transform 0.2s ease;
-
+  transition:
+    letter-spacing 0.35s ease,
+    transform 0.35s ease;
 }
 
 
-.about-button:hover {
+.corner-button {
 
-    letter-spacing: 0.16em;
+  top: 112px;
+}
 
-    transform: scaleX(1.03);
+
+.contact-button {
+
+  top: auto;
+
+  bottom: 32px;
+}
+
+
+.corner-button:hover {
+
+  letter-spacing: 0.1em;
+
+  transform:
+    scaleX(1.05);
+}
+
+
+/* =========================================
+   POPUP OVERLAY
+========================================= */
+
+.popup-overlay {
+
+  position: fixed;
+
+  inset: 0;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  background:
+    rgba(232, 227, 216, 0.42);
+
+  backdrop-filter:
+    blur(2px);
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  transition:
+    opacity 0.4s ease;
+
+  z-index: 20;
+}
+
+
+.popup-overlay.active {
+
+  opacity: 1;
+
+  pointer-events: auto;
+}
+
+
+/* =========================================
+   POPUP
+========================================= */
+
+.popup {
+
+  position: relative;
+
+  width:
+    min(520px, calc(100% - 64px));
+
+  min-height: 240px;
+
+  padding: 34px;
+
+  background: #e8e3d8;
+
+  border:
+    3px solid #111111;
+
+  transform:
+    scale(0.97);
+
+  transition:
+    transform 0.45s cubic-bezier(.2,.8,.2,1);
+}
+
+
+.popup-overlay.active .popup {
+
+  transform:
+    scale(1);
+}
+
+
+/* =========================================
+   POPUP CLOSE
+========================================= */
+
+.popup-close {
+
+  position: absolute;
+
+  top: 14px;
+  right: 16px;
+
+  font-size: 18px;
+
+  line-height: 1;
+
+  transition:
+    transform 0.3s ease;
+}
+
+
+.popup-close:hover {
+
+  transform:
+    scaleX(1.35)
+    rotate(8deg);
+}
+
+
+/* =========================================
+   POPUP LABEL
+========================================= */
+
+.popup-label {
+
+  margin-bottom: 34px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.04em;
+}
+
+
+/* =========================================
+   POPUP TEXT
+========================================= */
+
+.popup-content {
+
+  max-width: 420px;
+
+  line-height: 1.6;
+}
+
+
+.popup-content p {
+
+  margin:
+    0 0 18px 0;
+}
+
+
+/* =========================================
+   CONTACT
+========================================= */
+
+.contact-content {
+
+  display: flex;
+
+  align-items: center;
+
+  flex-wrap: wrap;
+
+  gap: 14px;
+}
+
+
+.email-link {
+
+  color: #111111;
+
+  text-decoration: none;
+
+  border-bottom:
+    1px solid #111111;
+
+  padding-bottom: 2px;
+
+  transition:
+    letter-spacing 0.35s ease;
+}
+
+
+.email-link:hover {
+
+  letter-spacing: 0.05em;
+}
+
+
+.copy-button {
+
+  font-size: 11px;
+
+  padding:
+    5px 8px;
+
+  border:
+    1px solid #111111;
+
+  transition:
+    transform 0.3s ease,
+    letter-spacing 0.3s ease;
+}
+
+
+.copy-button:hover {
+
+  transform:
+    scaleX(1.08);
+
+  letter-spacing: 0.04em;
+}
+
+
+.copy-status {
+
+  font-size: 10px;
+
+  min-width: 45px;
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 700px) {
+
+  .player {
+
+    left: 24px;
+
+    width:
+      calc(100% - 48px);
+
+    padding: 28px;
+  }
+
+
+  .archive {
+
+    padding: 24px;
+  }
+
+
+  .archive-header {
+
+    top: 24px;
+
+    left: 24px;
+  }
+
+
+  .corner-button {
+
+    left: 24px;
+  }
+
+
+  .contact-button {
+
+    bottom: 24px;
+  }
+
+
+  .popup {
+
+    width:
+      calc(100% - 48px);
+
+    padding: 28px;
+  }
 
 }
