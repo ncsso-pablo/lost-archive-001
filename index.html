@@ -2,160 +2,254 @@
 <html lang="en">
 
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta charset="UTF-8">
+  <title>l o s t a r c h i v e _ 001</title>
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <title>l o s t  a r c h i v e _ 001</title>
-
-    <link rel="stylesheet" href="style.css">
-
+  <link rel="stylesheet" href="style.css">
 </head>
-
 
 <body>
 
-    <!-- START PAGE -->
+  <!-- START PAGE -->
 
-    <main
-        class="start-page"
-        id="start-page"
-    >
+  <main class="start-page" id="start-page">
+
+    <button class="archive-title start-title" id="enter-archive">
+
+      <span>l</span>
+      <span>o</span>
+      <span>s</span>
+      <span>t</span>
+      <span>&nbsp;</span>
+
+      <span>a</span>
+      <span>r</span>
+      <span>c</span>
+      <span>h</span>
+      <span>i</span>
+      <span>v</span>
+      <span>e</span>
+
+      <span>&nbsp;</span>
+      <span>_</span>
+      <span>&nbsp;</span>
+
+      <span>0</span>
+      <span>0</span>
+      <span>1</span>
+
+    </button>
+
+  </main>
+
+
+  <!-- ARCHIVE PAGE -->
+
+  <main class="archive" id="archive-page">
+
+    <!-- BACK TO START -->
+
+    <button class="archive-header" id="back-to-start">
+
+      <span>l</span>
+      <span>o</span>
+      <span>s</span>
+      <span>t</span>
+      <span>a</span>
+      <span>r</span>
+      <span>c</span>
+      <span>h</span>
+      <span>i</span>
+      <span>v</span>
+      <span>e</span>
+
+      <span>&nbsp;</span>
+      <span>_</span>
+      <span>&nbsp;</span>
+
+      <span>0</span>
+      <span>0</span>
+      <span>1</span>
+
+    </button>
+
+
+    <!-- PLAYER -->
+
+    <section class="player">
+
+      <div class="track-info">
+
+        <span class="track-number" id="track-number">
+          001
+        </span>
+
+        <span class="track-name" id="track-name">
+          surd
+        </span>
+
+      </div>
+
+
+      <audio id="audio"></audio>
+
+
+      <button
+        class="play-button morph-text"
+        id="play-button">
+        play
+      </button>
+
+
+      <div
+        class="progress-container"
+        id="progress-container">
+
+        <div class="progress-bar"></div>
+
+        <div class="progress-handle"></div>
+
+      </div>
+
+
+      <div class="time">
+
+        <span id="current-time">
+          00:00
+        </span>
+
+        <span id="duration">
+          00:00
+        </span>
+
+      </div>
+
+
+      <div class="track-navigation">
 
         <button
-            class="archive-title"
-            id="enter-archive"
-        >
-            l o s t  a r c h i v e _ 001
+          class="navigation-button morph-text"
+          id="previous-button">
+          ←
         </button>
 
-    </main>
-
-
-    <!-- ARCHIVE PAGE -->
-
-    <main
-        class="archive"
-        id="archive-page"
-    >
-
-        <h1>
-            l o s t  a r c h i v e _ 001
-        </h1>
-
-
-        <section class="player">
-
-
-            <!-- TRACK INFORMATION -->
-
-            <div class="track-info">
-
-                <span
-                    class="track-number"
-                    id="track-number"
-                >
-                    001
-                </span>
-
-
-                <span
-                    class="track-name"
-                    id="track-name"
-                >
-                    surd
-                </span>
-
-            </div>
-
-
-            <!-- AUDIO -->
-
-            <audio id="audio"></audio>
-
-
-            <!-- PLAY -->
-
-            <button
-                class="play-button"
-                id="play-button"
-            >
-                play
-            </button>
-
-
-            <!-- PROGRESS -->
-
-            <div
-                class="progress-container"
-                id="progress-container"
-            >
-
-                <div class="progress-bar"></div>
-
-                <div class="progress-handle"></div>
-
-            </div>
-
-
-            <!-- TIME -->
-
-            <div class="time">
-
-                <span id="current-time">
-                    00:00
-                </span>
-
-
-                <span id="duration">
-                    00:00
-                </span>
-
-            </div>
-
-
-            <!-- PREVIOUS / NEXT -->
-
-            <div class="track-navigation">
-
-                <button
-                    class="navigation-button"
-                    id="previous-button"
-                    aria-label="Previous track"
-                >
-                    ←
-                </button>
-
-
-                <button
-                    class="navigation-button"
-                    id="next-button"
-                    aria-label="Next track"
-                >
-                    →
-                </button>
-
-            </div>
-
-
-        </section>
-
-
-        <!-- ABOUT -->
-
-        <button class="about-button">
-            about
+        <button
+          class="navigation-button morph-text"
+          id="next-button">
+          →
         </button>
 
+      </div>
 
-    </main>
+    </section>
 
 
-    <script src="script.js"></script>
+    <!-- ABOUT -->
+
+    <button
+      class="corner-button morph-text"
+      id="about-button">
+      .about
+    </button>
+
+
+    <!-- CONTACT -->
+
+    <button
+      class="corner-button contact-button morph-text"
+      id="contact-button">
+      .contact
+    </button>
+
+
+    <!-- ABOUT POPUP -->
+
+    <div
+      class="popup-overlay"
+      id="about-overlay">
+
+      <div class="popup">
+
+        <button
+          class="popup-close"
+          data-close="about-overlay">
+          ×
+        </button>
+
+        <div class="popup-label">
+          .about
+        </div>
+
+        <div class="popup-content">
+
+          <p>
+            inspired by gaming - anime - cinema.
+          </p>
+
+          <p>
+            just some lil fragments.
+          </p>
+
+          <p>
+            an acoustic archive to my soul.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- CONTACT POPUP -->
+
+    <div
+      class="popup-overlay"
+      id="contact-overlay">
+
+      <div class="popup">
+
+        <button
+          class="popup-close"
+          data-close="contact-overlay">
+          ×
+        </button>
+
+        <div class="popup-label">
+          .contact
+        </div>
+
+        <div class="popup-content contact-content">
+
+          <a
+            class="email-link"
+            href="mailto:kopfnicolai@gmail.com">
+            kopfnicolai@gmail.com
+          </a>
+
+          <button
+            class="copy-button"
+            id="copy-email">
+            copy
+          </button>
+
+          <span
+            class="copy-status"
+            id="copy-status">
+          </span>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+
+  <script src="script.js"></script>
 
 </body>
 
